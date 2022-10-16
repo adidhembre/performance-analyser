@@ -2,6 +2,7 @@
 
 namespace Aditya\PerformanceAnalyser;
 use Illuminate\Support\ServiceProvider;
+use Aditya\PerformanceAnalyser\Middlewares\RouteListner;
 
 class PerformanceServiceProvider extends ServiceProvider
 {
@@ -17,6 +18,8 @@ class PerformanceServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        \Log::Info('booting from package');
+        $this->app->middleware([
+            RouteListner::class
+        ]);
     }
 }
