@@ -2,6 +2,7 @@
 
 namespace Aditya\PerformanceAnalyser;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Http\Kernel;
 use Aditya\PerformanceAnalyser\Middlewares\RouteListner;
 
 class PerformanceServiceProvider extends ServiceProvider
@@ -16,10 +17,16 @@ class PerformanceServiceProvider extends ServiceProvider
         //
     }
 
-    // protected function registerMiddleware($middleware)
-    // {
-    //     $this->app->middleware([$middleware]);
-    // }
+    /**
+     * Register Middlewares
+     *
+     * @param  string $middleware
+     */
+    protected function registerMiddleware($middleware)
+    {
+        $kernel = $this->app[Kernel::class];
+        $kernel->pushMiddleware($middleware);
+    }
 
     public function boot()
     {
