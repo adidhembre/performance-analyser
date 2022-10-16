@@ -16,10 +16,10 @@ class PerformanceServiceProvider extends ServiceProvider
         //
     }
 
-    protected function registerMiddleware($middleware)
-    {
-        $this->app->middleware([$middleware]);
-    }
+    // protected function registerMiddleware($middleware)
+    // {
+    //     $this->app->middleware([$middleware]);
+    // }
 
     public function boot()
     {
