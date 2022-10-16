@@ -1,0 +1,24 @@
+{
+    "name": "aditya/performance-analyser",
+    "description": "Locate the routes taking too much time to respond",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Aditya\\PerformanceAnalyser\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Aditya Dhembre",
+            "email": "adidhembre@gmail.com"
+        }
+    ],
+    "require": {},
+    "extra":{
+        "laravel":{
+            "providers":[
+                "Aditya\\PerformanceAnalyser\\PerformanceServiceProvider"
+            ]
+        }
+    }
+}
