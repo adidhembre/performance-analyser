@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Aditya\PerformanceAnalyser\Models\Collector;
 
 class CollectionController extends Controller
@@ -56,9 +57,9 @@ class CollectionController extends Controller
         $this->id = $c->id;
     }
 
-    private function endLog($response){
+    public function endLog($response){
         $this->endtime = microtime(true);
-        $c = Collector::find('id',$c->id);
+        $c = Collector::find($this->id);
         $data = [];
         foreach(self::$listners as $listner => $collectors){
             foreach($collectors as $collector){
@@ -75,7 +76,7 @@ class CollectionController extends Controller
     }
 
     private function getUser(){
-        return Auth::user()->id;
+        return Auth::id();
     }
 
     private function getRoute(){
