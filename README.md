@@ -6,6 +6,12 @@ Locate the routes taking too much time to respond
 composer require aditya/performance-analyser
 ```
 
+## Enable Analyser
+Add following in `.env` file
+```
+ANALYSER_ENABLED=true
+```
+
 ## Migration
 Migrate the migrations after installation
 ```
