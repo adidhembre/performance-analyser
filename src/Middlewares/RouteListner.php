@@ -4,7 +4,7 @@ namespace Aditya\PerformanceAnalyser\Middlewares;
 
 use Closure;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
+use Aditya\PerformanceAnalyser\Controllers\CollectionController as Listner;
 
 class RouteListner
 {
@@ -17,21 +17,9 @@ class RouteListner
      */
     public function handle(Request $request, Closure $next)
     {
-        \Log::Info('Before Route...');
-        // $route = \Route::current();
-        // $data = [
-        //     'route' => $route->uri,
-        //     'method' => $request->getMethod(),
-        //     'parameters' => json_encode($route->parameters),
-        //     //'' get parameters as header Referer, user_id etc.
-        //     'status' => 0,
-        //     'start_time' => Carbon::now(),
-        // ];
-        // dd($data);
+        $collector = new Listner($request);
         $response = $next($request);
-        
-        
-        \Log::Info('After Route...');
+        $collector->endLog($response);
         return $response;
     }
 }

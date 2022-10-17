@@ -14,7 +14,8 @@ class PerformanceServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $configPath = __DIR__ . '/../config/analyser.php';
+        $this->mergeConfigFrom($configPath, 'analyser');
     }
 
     /**
@@ -28,8 +29,22 @@ class PerformanceServiceProvider extends ServiceProvider
         $kernel->pushMiddleware($middleware);
     }
 
+
+    /**
+     * Register Migrations
+     *
+     */
+    protected function registerMigrations()
+    {
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+    }
+
     public function boot()
     {
-        $this->registerMiddleware(RouteListner::class);
+        
+        if(config('analyser.enabled')){
+            $this->registerMigrations();
+            $this->registerMiddleware(RouteListner::class);   
+        }
     }
 }
