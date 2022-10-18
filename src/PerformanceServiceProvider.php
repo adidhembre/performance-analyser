@@ -56,7 +56,7 @@ class PerformanceServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        
+        $this->registerCommands();
         if(config('analyser.enabled')){
             $this->registerMigrations();
             $this->registerMiddleware(RouteListner::class);   
