@@ -13,6 +13,8 @@ return [
 
     'enabled' => env('ANALYSER_ENABLED', false),
 
+    'middleware_groups' => ['web','api'],
+
     /*
      |--------------------------------------------------------------------------
      | DataCollectors

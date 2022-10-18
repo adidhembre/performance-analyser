@@ -5,6 +5,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Routing\Router;
 use Aditya\PerformanceAnalyser\Middlewares\RouteListner;
+use Aditya\PerformanceAnalyser\Console\ClearAnalyser;
 
 class PerformanceServiceProvider extends ServiceProvider
 {
@@ -29,8 +30,9 @@ class PerformanceServiceProvider extends ServiceProvider
         // $kernel = $this->app[Kernel::class];
         // $kernel->pushMiddleware($middleware);
         $router = $this->app->make(Router::class);
-        $router->pushMiddlewareToGroup('web', $middleware);
-        $router->pushMiddlewareToGroup('api', $middleware);
+        foreach(config('analyser.middleware_groups') as $g){
+            $router->pushMiddlewareToGroup($g, $middleware);
+        }
     }
 
 
@@ -41,6 +43,15 @@ class PerformanceServiceProvider extends ServiceProvider
     protected function registerMigrations()
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+    }
+
+    protected function registerCommands()
+    {
+        if($this->app->runningInConsole()) {
+            $this->commands([
+                ClearAnalyser::class,
+            ]);
+        }
     }
 
     public function boot()
