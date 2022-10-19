@@ -123,7 +123,7 @@ class CollectionController extends Controller
         if($response == null){
             return 0;
         }
-        else if($response->status() == 200){
+        else if($response->getStatusCode() == 200){
             return 1;
         }
         else{
