@@ -7,6 +7,8 @@ class Collector extends Model
 {
     protected $table= 'analyser';
 
+    protected $connection = 'mysql';
+
     public $timestamps = false;
 
     /**
@@ -27,4 +29,11 @@ class Collector extends Model
         'sqltime','starttime','endtime',
         'status','time'
     ];
+
+    function __construct()
+    {
+        if(config('analyser.connection') != null){
+            $this->connection = config('analyser.connection');
+        }
+    }
 }

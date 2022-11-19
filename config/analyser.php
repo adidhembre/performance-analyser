@@ -39,4 +39,6 @@ return [
         'time'      => true,  // Total time for execution of request in milliseconds
     ],
 
+    'connection' => 'mysql'
+
 ];

@@ -59,7 +59,6 @@ class CollectionController extends Controller
 
     public function endLog($response){
         $this->endtime = microtime(true);
-        $c = Collector::find($this->id);
         $data = [];
         foreach(self::$listners as $listner => $collectors){
             foreach($collectors as $collector){
@@ -71,8 +70,7 @@ class CollectionController extends Controller
                 }
             }
         }
-        $c->update($data);
-        $c->save();
+        Collector::where('id', $this->id)->update($data);
     }
 
     private function getUser(){

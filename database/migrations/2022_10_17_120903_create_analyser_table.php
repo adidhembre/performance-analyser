@@ -6,12 +6,20 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateAnalyserTable extends Migration
 {
+    private function getConnectionName()
+    {
+        if(config('analyser.connection') != null){
+            return config('analyser.connection');
+        }
+        return 'mysql';
+    }
+
     /**
      * Run the migrations.
      */
     public function up()
     {
-        Schema::create('analyser', function (Blueprint $table) {
+        Schema::connection($this->getConnectionName())->create('analyser', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user')->nullable();
             $table->text('route')->nullable();
@@ -32,6 +40,6 @@ class CreateAnalyserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('analyser');
+        Schema::connection($this->getConnectionName())->dropIfExists('analyser');
     }
 }
